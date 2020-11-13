@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App  from './App';
+import { MainLayoutComponent } from './MainLayout';
 
-describe('Component Header', () => {
+describe('Component MainLayout', () => {
   it('should render without crashing', () => {
-    const component = shallow(<App />);
+    const component = shallow(<MainLayoutComponent />);
     expect(component).toBeTruthy();
   });
 });

@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import App  from './App';
+import { HomepageComponent } from './Homepage';
 
-describe('Component Header', () => {
+describe('Component Homepage', () => {
   it('should render without crashing', () => {
-    const component = shallow(<App />);
+    const component = shallow(<HomepageComponent />);
     expect(component).toBeTruthy();
   });
 });
