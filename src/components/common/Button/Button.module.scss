@@ -1,0 +1,28 @@
+@import '../../../styles/settings.scss';
+
+.button {
+  align-items: center;
+  background: $button-bg;
+  border-radius: 20px;
+  color: $button-color;
+  cursor: pointer;
+  display: flex;
+  height: 4vh;
+  justify-content: center;
+  margin: 0 5px 0 5px;
+  transition: $transition;
+  width: 200px;
+  &:hover {
+    background: $button-bg-hover;
+    box-shadow: 0px 4px 4px 0px rgba(0,0,0,0.25);
+    color: $button-color-hover;
+    margin: 0 5px 10px 5px;
+    transition: $transition;
+  }
+  .link {
+    text-decoration: none;
+    font-size: $font-size;
+    font-weight: bolder;
+    color: black;
+  }
+}

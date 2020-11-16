@@ -1,4 +1,9 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 90vh;
+}

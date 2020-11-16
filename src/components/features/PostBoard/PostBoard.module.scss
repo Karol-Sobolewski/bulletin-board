@@ -1,0 +1,28 @@
+@import '../../../styles/settings.scss';
+
+.root {
+  width: 90%;
+}
+.postsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  height: 80vh;
+}
+.post {
+  border: 2px solid black;
+  height: 350px;
+  .postTitle{
+    width: 100%;
+    border-bottom: solid 2px $post-title-bg
+    }
+  }
+
+@media only screen and (max-width: 992px)
+ {
+  .postsGrid{
+    overflow: scroll;
+  }
+ }
+
+

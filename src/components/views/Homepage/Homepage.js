@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import {PostBoard} from '../../features/PostBoard/PostBoard';
 import clsx from 'clsx';
 
 // import { connect } from 'react-redux';
@@ -8,16 +8,22 @@ import clsx from 'clsx';
 
 import styles from './Homepage.module.scss';
 
-const Component = ({className, children}) => (
-  <div className={clsx(className, styles.root)}>
-    <h2>Homepage</h2>
-    {children}
-  </div>
-);
+class Component extends React.Component {
+
+  render(){
+    const {className, children} = this.props;
+    return (
+      <div className={clsx(className, styles.root)}>
+        <PostBoard />
+        {children}
+      </div>
+    );
+  }
+}
 
 Component.propTypes = {
-  children: PropTypes.node,
   className: PropTypes.string,
+  children: PropTypes.node,
 };
 
 // const mapStateToProps = state => ({

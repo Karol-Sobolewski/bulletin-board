@@ -1,1 +1,6 @@
-@import "settings.scss"
+@import "settings.scss";
+
+body {
+  background-color: $main-theme;
+  font-family: $title-font;
+}
