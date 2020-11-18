@@ -31,5 +31,26 @@ export const initialState = {
       error: false,
     },
   },
-  users: [`Logged`, `Admin`, `NotLogged`],
+  users: {
+    data: [
+      {
+        id: 10,
+        role: `Not Logged`,
+        active: false,
+      },
+      {
+        id: 11,
+        name: `User 2`,
+        role: `Logged`,
+        active: true,
+      },
+      {
+        id: 12,
+        name: `User 3`,
+        role: `Admin`,
+        active: true,
+      },
+    ],
+    active: false,
+  },
 };

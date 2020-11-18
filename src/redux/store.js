@@ -3,13 +3,14 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { initialState } from './initialState';
 import postsReducer from './postsRedux';
-
+import usersReducer from './usersRedux';
 // define initial state and shallow-merge initial data
 
 
 // define reducers
 const reducers = {
   posts: postsReducer,
+  users:  usersReducer,
 };
 
 // add blank reducers for initial state properties without reducers
