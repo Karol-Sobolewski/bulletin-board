@@ -30,7 +30,7 @@ class Component extends React.Component {
   changeUser(e){
     console.log(e.target.value);
     // const { sendStatus } = this.props;
-    //sendStatus(e.target.value);
+    // sendStatus(e.target.value);
   }
   render(){
     const {className, usersList, children, isLogged} = this.props;
@@ -46,7 +46,7 @@ class Component extends React.Component {
                 {console.log(usersList)}
                 <select onChange={this.changeUser}>
                   {usersList.map(user => (
-                    <option key={user.id} active={user.active}>{user.role}</option>
+                    <option key={user.id} value={user.active}>{user.role}</option>
                   ))}
                 </select>
                 <Select
