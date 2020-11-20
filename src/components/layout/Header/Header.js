@@ -31,13 +31,18 @@ changeStatus = (payload) => {
 changeUser(e){
   const { sendStatus } = this.props;
   // sendStatus(e.target.value);
-  const id = e.target.getAttribute('id');
-  const role = e.target.getAttribute('role');
-  const name = e.target.getAttribute('userName');
-  const active = e.target.getAttribute('active');
+  const id = (e.target[e.target.selectedIndex].getAttribute('id'));
+  const role = (e.target[e.target.selectedIndex].getAttribute('role'));
+  const name = (e.target[e.target.selectedIndex].getAttribute('name'));
+  const active = (e.target[e.target.selectedIndex].getAttribute('active'));
 
-  console.log('user', id);
-  sendStatus({id: id, name: name, role: role, active: active});
+  // const id = e.target.getAttribute('id');
+  // const role = e.target.getAttribute('role');
+  // const name = e.target.getAttribute('userName');
+  // const active = e.target.getAttribute('active');
+
+  console.log('user', active);
+  // sendStatus({id: id, name: name, role: role, active: active});
 
 }
 render(){
@@ -54,7 +59,7 @@ render(){
               {/* {console.log(usersList)} */}
               <select onChange={(payload) => this.changeUser(payload)}>
                 {usersList.map(user => (
-                  <option key={user.id} role={user.role} name={user.id}>{user.name}</option>
+                  <option key={user.id} role={user.role} name={user.name} id={user.id} active={user.active.toString()}>{user.name}</option>
                 ))}
               </select>
               <Select
