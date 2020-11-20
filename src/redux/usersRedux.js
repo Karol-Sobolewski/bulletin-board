@@ -2,8 +2,7 @@
 
 /* selectors */
 export const getAll = ({users}) => users.data;
-export const getActive = ({users}) => users.active;
-export const getRole = ({users}) => users.active;
+export const getActive = ({users}) => users.activeUser;
 /* action name creator */
 const reducerName = 'users';
 const createActionName = name => `app/${reducerName}/${name}`;
@@ -54,8 +53,7 @@ export default function reducer(statePart = [], action = {}) {
     case CHANGE_USER: {
       return {
         ...statePart,
-        active: action.payload,
-        // active: true,
+        activeUser: action.payload,
       };
     }
     default:

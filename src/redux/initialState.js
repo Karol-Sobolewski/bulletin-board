@@ -35,22 +35,34 @@ export const initialState = {
     data: [
       {
         id: 10,
+        name: `Not Logged`,
         role: `Not Logged`,
         active: false,
       },
       {
         id: 11,
-        name: `User 2`,
+        name: `User 1`,
         role: `Logged`,
         active: true,
       },
       {
         id: 12,
-        name: `User 3`,
+        name: `User 2`,
+        role: `Logged`,
+        active: true,
+      },
+      {
+        id: 13,
+        name: `Admin`,
         role: `Admin`,
         active: true,
       },
     ],
-    active: false,
+    activeUser: {
+      id: 10,
+      name: `Not Logged`,
+      role: `Not Logged`,
+      active: false,
+    },
   },
 };

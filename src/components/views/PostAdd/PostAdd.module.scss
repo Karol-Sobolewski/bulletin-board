@@ -1,4 +1,34 @@
 @import '../../../styles/settings.scss';
 
-// .root {
-// }
+.root {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  // display: none;
+  .visible {
+    display: flex;
+}
+}
+
+ .postAdd {
+  // width: 100%;
+  // border: 2px solid black;
+  // height: 350px;
+    .postAddTitle {
+      border-bottom: solid 2px $post-title-bg;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+      width: 100%;
+    font-weight: 500;
+    line-height: 1.2;
+    box-sizing: border-box;
+      }
+  }
+
+  textarea{
+    width: 100%;
+  }
+  input {
+    width: 100%;
+  }
+

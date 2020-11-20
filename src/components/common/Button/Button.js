@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styles from './Button.module.scss';
+import clsx from 'clsx';
 
 const Button = ({ name, href }) => (
   <div className={styles.button}>
-    <a className={styles.link} href={href}>
+    <a className={styles.link}
+      href={href}>
       { name }
     </a>
   </div>

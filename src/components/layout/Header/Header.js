@@ -21,69 +21,81 @@ class Component extends React.Component {
   //   this.setState({active: value.active});
   //   // console.log(this.state);
   // }
-  changeStatus(payload) {
-    console.log(payload);
-    const { sendStatus } = this.props;
-    sendStatus(payload);
-  }
+changeStatus = (payload) => {
+  console.log('user', payload);
+  const { sendStatus } = this.props;
 
-  changeUser(e){
-    console.log(e.target.value);
-    // const { sendStatus } = this.props;
-    // sendStatus(e.target.value);
-  }
-  render(){
-    const {className, usersList, children, isLogged} = this.props;
-    return(
-      <div className={clsx(className, styles.root)}>
-        <div className="container-fluid d-flex align-items-center justify-content-center">
-          <div className="row justify-content-between w-100">
-            <div className="col-4 d-flex align-items-center">
-              <a href='/' className={`${styles.title} d-flex align-items-center justify-content-center`}> <PinDropIcon className={styles.icon}/> Bulletin Board</a>
-            </div>
-            <div className="col-4 d-flex align-items-center justify-content-center">
-              <div className="user-select">
-                {console.log(usersList)}
-                <select onChange={this.changeUser}>
-                  {usersList.map(user => (
-                    <option key={user.id} value={user.active}>{user.role}</option>
-                  ))}
-                </select>
-                <Select
-                  name="form-field-name"
-                  value={'true'}
-                  onChange={(payload) =>this.changeStatus(payload.active)}
-                  options={
-                    usersList.map( user => ({
-                      label: user.role,
-                      value: user.role,
-                      active: user.active,
-                    }))
-                  }
-                />
-              </div>
-              {isLogged ?  <Button className={styles.link} href='/' name='Logout' onClick={console.log('Logout')}/>  : <Button className={styles.link} href='https://google.com' name='Login'/>}
-            </div>
+  sendStatus({id: payload.id, name: payload.name, role: payload.role, active: payload.active});
+};
+
+changeUser(e){
+  const { sendStatus } = this.props;
+  // sendStatus(e.target.value);
+  const id = e.target.getAttribute('id');
+  const role = e.target.getAttribute('role');
+  const name = e.target.getAttribute('userName');
+  const active = e.target.getAttribute('active');
+
+  console.log('user', id);
+  sendStatus({id: id, name: name, role: role, active: active});
+
+}
+render(){
+  const {className, usersList, children, loggedUser} = this.props;
+  return(
+    <div className={clsx(className, styles.root)}>
+      <div className="container-fluid d-flex align-items-center justify-content-center">
+        <div className="row justify-content-between w-100">
+          <div className="col-4 d-flex align-items-center">
+            <a href='/' className={`${styles.title} d-flex align-items-center justify-content-center`}> <PinDropIcon className={styles.icon}/> Bulletin Board</a>
           </div>
-          {children}
+          <div className="col-4 d-flex align-items-center justify-content-center">
+            <div className="user-select">
+              {/* {console.log(usersList)} */}
+              <select onChange={(payload) => this.changeUser(payload)}>
+                {usersList.map(user => (
+                  <option key={user.id} role={user.role} name={user.id}>{user.name}</option>
+                ))}
+              </select>
+              <Select
+                name="form-field-name"
+                value={'true'}
+                onChange={(payload) =>this.changeStatus(payload)}
+                selectOption={'hey'}
+                options={
+                  usersList.map( user => ({
+                    id: user.id,
+                    name: user.name,
+                    role: user.role,
+                    active: user.active,
+                    label: user.name,
+                    value: user.role,
+                  }))
+                }
+              />
+            </div>
+            {loggedUser.active ?  <Button className={styles.link} href='/' name='Logout' onClick={console.log('Logout')}/>  : <Button className={styles.link} href='https://google.com' name='Login'/>}
+          </div>
         </div>
+        {children}
       </div>
-    );
-  }
+    </div>
+  );
+}
 }
 
 Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   usersList: PropTypes.any,
-  isLogged: PropTypes.bool,
+  loggedUser: PropTypes.object,
   role: PropTypes.bool,
   sendStatus:PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   usersList: getAll(state),
-  isLogged: getActive(state),
+  loggedUser: getActive(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
