@@ -21,7 +21,7 @@ const Component = ({className, children, postsList, isLogged}) => {
             <h3 className={`${styles.postTitle} align-self-start`}>{post.title}</h3>
             <p>{post.description}</p>
             <p className={`align-self-end`}>By: {post.user}</p>
-            {isLogged.name === post.user || isLogged.name === 'Admin'? <button onClick={console.log('edit')}>Edit{console.log('logged', isLogged)}</button> : null}
+            {isLogged.name === post.user || isLogged.name === 'Admin'? <button onClick={console.log('edit')}>Edit</button> : null}
 
           </Post>
         ))}
