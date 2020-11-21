@@ -19,11 +19,15 @@ class Component extends React.Component {
     // console.log('no');
   }
   render(){
-    const {className, children, activePost} = this.props;
+    const {className, children, activePost, activeUser} = this.props;
     return(
       <div className={clsx(className, styles.root)}>
-        <h1>Post</h1>
-        {activePost.id}
+        {/* {activePost.id} */}
+        <h3 className={`${styles.postTitle} align-self-start`}>{activePost.title}</h3>
+        <p>{activePost.description}</p>
+        <p className={`align-self-end`}>{activePost.user}</p>
+        {activeUser.name === activePost.user || activeUser.name === 'Admin' ? <button onClick={console.log('edit')}>Edit</button> : null}
+
         {children}
         {/* {console.log(postsList, activeUser, postEdit)} */}
         {/* {console.log('pu', postsList.filter(post => post.user===activeUser.name)} */}
