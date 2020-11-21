@@ -3,6 +3,7 @@ import shortid from 'shortid';
 
 /* selectors */
 export const getAll = ({posts}) => posts.data;
+export const getActivePost = ({posts}) => posts.activePost;
 
 /* action name creator */
 const reducerName = 'posts';
@@ -13,12 +14,14 @@ const FETCH_START = createActionName('FETCH_START');
 const FETCH_SUCCESS = createActionName('FETCH_SUCCESS');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 const ADD_POST = createActionName('ADD_POST');
+const SELECT_POST = createActionName('SELECT_POST');
 
 /* action creators */
 export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const addPost = payload => ({payload: { ...payload, id: shortid.generate() }, type: ADD_POST });
+export const selectPost = payload => ({payload: payload, type: SELECT_POST });
 
 /* reducer */
 export default function reducer(statePart = [], action = {}) {
@@ -59,6 +62,12 @@ export default function reducer(statePart = [], action = {}) {
           error: false,
         },
         data: [...statePart.data, action.payload],
+      };
+    }
+    case SELECT_POST: {
+      return {
+        ...statePart,
+        activePost: action.payload,
       };
     }
     default:

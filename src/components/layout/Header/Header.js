@@ -41,7 +41,7 @@ changeUser(e){
   // const name = e.target.getAttribute('userName');
   // const active = e.target.getAttribute('active');
 
-  console.log('user', active);
+  console.log('user', e.target);
   // sendStatus({id: id, name: name, role: role, active: active});
 
 }

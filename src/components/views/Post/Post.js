@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll } from '../../../redux/postsRedux';
+import { getAll, getActivePost } from '../../../redux/postsRedux';
 import {  getActive } from '../../../redux/usersRedux';
 
 import styles from './Post.module.scss';
@@ -19,9 +19,11 @@ class Component extends React.Component {
     // console.log('no');
   }
   render(){
-    const {className, children} = this.props;
+    const {className, children, activePost} = this.props;
     return(
       <div className={clsx(className, styles.root)}>
+        <h1>Post</h1>
+        {activePost.id}
         {children}
         {/* {console.log(postsList, activeUser, postEdit)} */}
         {/* {console.log('pu', postsList.filter(post => post.user===activeUser.name)} */}
@@ -40,12 +42,15 @@ Component.propTypes = {
   className: PropTypes.string,
   postsList: PropTypes.any,
   activeUser: PropTypes.node,
+  activePost: PropTypes.object,
   postEdit: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   postsList: getAll(state),
   activeUser: getActive(state),
+  activePost: getActivePost(state),
+  // activePost: getActivePost(state),
 });
 
 // const mapDispatchToProps = dispatch => ({

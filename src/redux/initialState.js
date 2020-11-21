@@ -30,6 +30,7 @@ export const initialState = {
       active: false,
       error: false,
     },
+    activePost: {},
   },
   users: {
     data: [
