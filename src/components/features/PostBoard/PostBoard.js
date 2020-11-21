@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import { getAll, selectPost } from '../../../redux/postsRedux';
 import { getActive } from '../../../redux/usersRedux';
 import Button from '../../common/Button/Button';
-import { Post } from '../../views/Post/Post';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import styles from './PostBoard.module.scss';
-import { PostAdd } from '../../views/PostAdd/PostAdd';
+import { Post } from '../../views/Post/Post';
 import { Posts } from '../../views/Posts/Posts';
+import { PostAdd } from '../../views/PostAdd/PostAdd';
+
 class Component extends React.Component {
   selectedPost(payload){
     const { sendActivePost } = this.props;

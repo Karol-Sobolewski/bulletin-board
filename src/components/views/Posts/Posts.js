@@ -13,7 +13,7 @@ const Component = ({className, children, id, title, description, user }) => (
     <h3 className={`${styles.postTitle} align-self-start`}>{title}</h3>
     <p>{description}</p>
     <p className={`align-self-end`}>{user}</p>
-    {/* <Post /> */}
+    {props => <Post {...props} key={this.props.id} />}
     {children}
   </div>
 );

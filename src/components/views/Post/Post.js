@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { getAll, getActivePost } from '../../../redux/postsRedux';
+import { getAll, getActivePost, getPostById } from '../../../redux/postsRedux';
 import {  getActive } from '../../../redux/usersRedux';
-
+import Button from '../../common/Button/Button';
 import styles from './Post.module.scss';
 
 class Component extends React.Component {
@@ -18,16 +18,18 @@ class Component extends React.Component {
     // }
     // console.log('no');
   }
+  componentDidMount() {
+    // console.log('props', this.props.match.params.id);
+  }
   render(){
-    const {className, children, activePost, activeUser} = this.props;
+    const {className, children, activePost, activeUser, id, title, description, post, user} = this.props;
     return(
       <div className={clsx(className, styles.root)}>
-        {/* {activePost.id} */}
-        <h3 className={`${styles.postTitle} align-self-start`}>{activePost.title}</h3>
-        <p>{activePost.description}</p>
-        <p className={`align-self-end`}>{activePost.user}</p>
-        {activeUser.name === activePost.user || activeUser.name === 'Admin' ? <button onClick={console.log('edit')}>Edit</button> : null}
-
+        <h3 className={`${styles.postTitle} align-self-start`}>{post.title}</h3>
+        <p className={`align-self-end`}>By: {post.user}</p>
+        {post.description}
+        {activeUser.name === post.user || activeUser.name === 'Admin' ? <Button onClick={console.log('edit')} name={'Edit'}>Edit</Button> : null}
+        {/* {console.log(id)} */}
         {children}
         {/* {console.log(postsList, activeUser, postEdit)} */}
         {/* {console.log('pu', postsList.filter(post => post.user===activeUser.name)} */}
@@ -45,15 +47,23 @@ Component.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   postsList: PropTypes.any,
-  activeUser: PropTypes.node,
+  activeUser: PropTypes.object,
   activePost: PropTypes.object,
   postEdit: PropTypes.func,
+  id: PropTypes.node,
+  title: PropTypes.node,
+  description: PropTypes.node,
+  user: PropTypes.node,
+  post: PropTypes.any,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state, props) => ({
+  post: getPostById(state, props.match.params.id),
   postsList: getAll(state),
   activeUser: getActive(state),
   activePost: getActivePost(state),
+
+
   // activePost: getActivePost(state),
 });
 
