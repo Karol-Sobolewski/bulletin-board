@@ -17,29 +17,30 @@ class Component extends React.Component {
     // console.log('user', payload);
     sendActivePost(payload);
   }
-
+  addPostButton(add){
+    console.log('add');
+  }
   render(){
-    const {className, children, postsList, isLogged}= this.props;
+    const {className, children, postsList, isLogged, addPostButton}= this.props;
     return (
       <div className={clsx(className, styles.root)}>
-        <h2 className="row">PostBoard</h2>
         <div className={`${styles.postsGrid} justify-content-center`}>
-          {postsList.map(post => (
-            <Link key={post.id} to={`/post/${post.id}`} onClick={(payload) => this.selectedPost(post)} className={`${styles.post} col-sm-12 col-md-6 col-lg-3 d-flex flex-column align-items-center justify-content-between pt-3 pb-3`}>
-              <Posts {...post}/ >
-            </Link>
-          ))}
+          {postsList.length ? postsList.map(post => {
+            // console.log('1', post.status != 'draft' && isLogged.active ? post.status : null);
+            // console.log('2', post.status === 'draft' && (isLogged.user !=  post.user ||  isLogged.user ==  'Admin')? post.status : null);
+            return <Link key={post.id} to={`/post/${post.id}`} onClick={(payload) => this.selectedPost(post)} className={`${styles.post} col-sm-12 col-md-6 col-lg-3 d-flex flex-column align-items-center justify-content-between pt-3 pb-3`}>
+              <Posts {...post} />
+            </Link>;
+          }) : <p>There are no post. {isLogged.active ? <p>Add new one.</p>: null}</p>}
           {isLogged.active ?
             <div className={`${styles.post} col-sm-12 col-md-6 col-lg-3 d-flex flex-column align-items-center justify-content-center pt-3 pb-3`}>
               {/* className={styles.addPostButton} */}
-              <div className={styles.addPostButton}>
-                {/* <Button name='Add new post' className ="test" onClick={console.log('add')}/> */}
-
-              </div>
+              <button className={styles.addPostButton} onClick={addPostButton}>
+                Add
+              </button>
               <PostAdd />
             </div> : null}
         </div>
-        {children}
       </div>
     );
   }
@@ -50,6 +51,7 @@ Component.propTypes = {
   postsList: PropTypes.any,
   isLogged: PropTypes.object,
   sendActivePost: PropTypes.func,
+  addPostButton: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

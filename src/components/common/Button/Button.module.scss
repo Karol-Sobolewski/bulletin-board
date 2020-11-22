@@ -4,12 +4,17 @@
   align-items: center;
   background: $button-bg;
   border-radius: 20px;
+  border: 1px solid #121212;
   color: $button-color;
+  color: black;
   cursor: pointer;
   display: flex;
+  font-size: $font-size;
+  font-weight: bolder;
   height: 4vh;
   justify-content: center;
   margin: 0 5px 0 5px;
+  text-decoration: none;
   transition: $transition;
   width: 200px;
   &:hover {
@@ -18,12 +23,10 @@
     color: $button-color-hover;
     margin: 0 5px 10px 5px;
     transition: $transition;
+
   }
   .link {
-    text-decoration: none;
-    font-size: $font-size;
-    font-weight: bolder;
-    color: black;
+
   }
   .addPostButton{
     position: absolute;

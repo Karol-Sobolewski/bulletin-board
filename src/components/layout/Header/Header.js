@@ -79,7 +79,7 @@ render(){
                 }
               />
             </div>
-            {loggedUser.active ?  <Button className={styles.link} href='/' name='Logout' onClick={console.log('Logout')}/>  : <Button className={styles.link} href='https://google.com' name='Login'/>}
+            {loggedUser.active ?  <Button className={styles.link} name='Logout' onClick={() => console.log('Logout')}/>  : <Button className={styles.link} href='https://google.com' name='Login'/>}
           </div>
         </div>
         {children}

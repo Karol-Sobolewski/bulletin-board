@@ -5,5 +5,28 @@
   display: flex;
   flex-direction: column;
   height: 90vh;
-  justify-content: center;
+  justify-content: space-between;
+  height: 350px;
+  width: 100%;
+
 }
+
+.post {
+ border: 2px solid black;
+ .postTitle{
+   border-bottom: solid 2px $post-title-bg
+   }
+
+ }
+ .postDescription {
+  text-align: center;
+  text-justify: inter-word;
+    height: 60%;
+    overflow-y: auto;
+    width: 100%;
+    word-wrap: break-word;
+}
+ .addPostButton {
+   position: absolute;
+   z-index: 5;
+ }

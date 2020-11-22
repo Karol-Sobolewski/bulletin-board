@@ -8,6 +8,9 @@ import { getAll, getActivePost, getPostById } from '../../../redux/postsRedux';
 import {  getActive } from '../../../redux/usersRedux';
 import Button from '../../common/Button/Button';
 import styles from './Post.module.scss';
+import { PostEdit } from '../PostEdit/PostEdit';
+import { Link} from 'react-router-dom';
+import {NotFound} from '../NotFound/NotFound';
 
 class Component extends React.Component {
   postEdit() {
@@ -22,23 +25,25 @@ class Component extends React.Component {
     // console.log('props', this.props.match.params.id);
   }
   render(){
-    const {className, children, activePost, activeUser, id, title, description, post, user} = this.props;
+    const {className, children, activePost, activeUser, post} = this.props;
     return(
-      <div className={clsx(className, styles.root)}>
-        <h3 className={`${styles.postTitle} align-self-start`}>{post.title}</h3>
-        <p className={`align-self-end`}>By: {post.user}</p>
-        {post.description}
-        {activeUser.name === post.user || activeUser.name === 'Admin' ? <Button onClick={console.log('edit')} name={'Edit'}>Edit</Button> : null}
-        {/* {console.log(id)} */}
-        {children}
-        {/* {console.log(postsList, activeUser, postEdit)} */}
-        {/* {console.log('pu', postsList.filter(post => post.user===activeUser.name)} */}
-
-        {/* {console.log('user', postsList.filter(post => post.user===activeUser.name), )} */}
-        {/* {activeUser.user = activeUser.name ? console.log(postsList.user) : console.log('no')} */}
-        {/* {console.log(activeUser.name)} */}
-        {/* <button onClick={console.log('postlist', postsList)}>Edit</button> */}
-      </div>
+      post.error === true ? <NotFound /> :
+        <div className={clsx(className, styles.root)}>
+          {/* {console.log('post', post.error)} */}
+          <h3 className={`${styles.postTitle} align-self-start`}>{post.title}</h3>
+          {post.description}
+          <p className={`align-self-end`}>By: {post.author}</p>
+          <p>Posted: {post.date}</p>
+          {console.log(`edited`, post)}
+          {post.edited ? <p>Last Edited: {post.edited.date} by: {post.edited.name}</p> : null}
+          {post.status}
+          {activeUser.name === post.author || activeUser.name === 'Admin' ?
+            <Link key={post.id} to={`/post/${post.id}/edit`}>
+              Edit
+            </Link> :
+            null}
+          {children}
+        </div>
     );
   }
 }
@@ -53,7 +58,7 @@ Component.propTypes = {
   id: PropTypes.node,
   title: PropTypes.node,
   description: PropTypes.node,
-  user: PropTypes.node,
+  author: PropTypes.node,
   post: PropTypes.any,
 };
 
