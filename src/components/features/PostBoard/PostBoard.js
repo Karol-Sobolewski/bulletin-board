@@ -22,6 +22,11 @@ class Component extends React.Component {
   }
   render(){
     const {className, children, postsList, isLogged, addPostButton}= this.props;
+    const postFiltered = postsList.filter(post => post.status === 'draft');
+    // console.log(`isLogged`, isLogged);
+    const postMapped = postFiltered.map(post => post.author === isLogged.name);
+    console.log(postFiltered);
+    console.log(postMapped);
     return (
       <div className={clsx(className, styles.root)}>
         <div className={`${styles.postsGrid} justify-content-center`}>

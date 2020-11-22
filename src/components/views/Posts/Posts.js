@@ -12,10 +12,11 @@ import {  getActive } from '../../../redux/usersRedux';
 import styles from './Posts.module.scss';
 
 const Component = ({activeUser, className, children, id, title, description, author, date, edited, status}) => {
-  console.log('user name', activeUser.name);
-  console.log('author', author);
-  console.log('status', status);
-  console.log((status === 'draft' && activeUser.name === author) || (status === 'draft' && activeUser.name === `Admin`) ? 'yes': 'no');
+  // console.log('user name', activeUser.name);
+  // console.log('author', author);
+  // console.log('status', status);
+  // console.log();
+  // console.log(status === 'draft' && activeUser.name === author ? status: 'no');
   //TODO When post is draft and when user is not the author than is not visible.
   return(
     <div className={clsx(className, styles.root)}>

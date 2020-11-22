@@ -21,6 +21,13 @@ export const initialState = {
         status: 'draft',
       },
       {
+        id: 1231234,
+        author: `User 2`,
+        title: `title 222`,
+        description: `description 3`,
+        status: 'draft',
+      },
+      {
         id: 3,
         author: `User 3`,
         title: `title 3`,
