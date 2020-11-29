@@ -11,7 +11,18 @@ import {  getActive } from '../../../redux/usersRedux';
 
 import styles from './Posts.module.scss';
 
-const Component = ({activeUser, className, children, id, title, description, author, date, edited, status}) => {
+const Component = ({
+  activeUser,
+  className,
+  children, id,
+  title,
+  description,
+  author,
+  created,
+  editAuthor,
+  editDate,
+  status,
+}) => {
   // console.log('user name', activeUser.name);
   // console.log('author', author);
   // console.log('status', status);
@@ -23,9 +34,9 @@ const Component = ({activeUser, className, children, id, title, description, aut
       <h3 className={`${styles.postTitle} align-self-start`}>{title}</h3>
       <p className={`${styles.postDescription}`}>{description}</p>
       <p className={`align-self-end`}>by: {author}</p>
-      <p>Posted: {date}</p>
-      {edited ? <p>Last Edited: {edited.date} by: {edited.name}</p> : null}
-      {props => <Post {...props} key={this.props.id} />}
+      <p>Posted: {created}</p>
+      {editDate ? <p>Last Edited: {editDate} by: {editAuthor}</p> : null}
+      {props => <Post {...props} key={this.props._id} />}
       {children}
     </div>
   );
@@ -39,8 +50,9 @@ Component.propTypes = {
   title: PropTypes.node,
   description: PropTypes.node,
   author: PropTypes.node,
-  date: PropTypes.node,
-  edited: PropTypes.object,
+  created: PropTypes.node,
+  editDate: PropTypes.node,
+  editAuthor: PropTypes.string,
   status: PropTypes.node,
   activeUser: PropTypes.object,
 };

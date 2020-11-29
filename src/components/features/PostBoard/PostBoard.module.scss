@@ -3,6 +3,15 @@
 .root {
   width: 100%;
 }
+
+div.active {
+  display: flex;
+}
+
+.activeButton{
+  display: flex;
+}
+
 .postsGrid {
   display: flex;
   flex-wrap: wrap;
@@ -11,13 +20,14 @@
   // gap: 12px;
   height: 80vh;
 }
+
 .post {
   border: 2px solid black;
   height: 350px;
   text-decoration: none;
   color: black;
   &:hover,
-  .active {
+  &.active {
     color: black;
     text-decoration: none;
   }
@@ -29,7 +39,13 @@
   .addPostButton {
     position: absolute;
     z-index: 5;
+    display: none;
   }
+  .addPostButtonHidden {
+    @extend .addPostButton;
+    display: none;
+  }
+  // .addPostButton
 @media only screen and (max-width: 992px)
  {
   .postsGrid{

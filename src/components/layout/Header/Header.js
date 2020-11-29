@@ -22,7 +22,7 @@ class Component extends React.Component {
   //   // console.log(this.state);
   // }
 changeStatus = (payload) => {
-  console.log('user', payload);
+  // console.log('user', payload);
   const { sendStatus } = this.props;
 
   sendStatus({id: payload.id, name: payload.name, role: payload.role, active: payload.active});
@@ -41,7 +41,7 @@ changeUser(e){
   // const name = e.target.getAttribute('userName');
   // const active = e.target.getAttribute('active');
 
-  console.log('user', e.target);
+  // console.log('user', e.target);
   // sendStatus({id: id, name: name, role: role, active: active});
 
 }
@@ -58,7 +58,7 @@ render(){
             <div className="user-select">
               {/* {console.log(usersList)} */}
               <select onChange={(payload) => this.changeUser(payload)}>
-                {usersList.map(user => (
+                {usersList.map(user => ( //eslint-disable-line
                   <option key={user.id} role={user.role} name={user.name} id={user.id} active={user.active.toString()}>{user.name}</option>
                 ))}
               </select>

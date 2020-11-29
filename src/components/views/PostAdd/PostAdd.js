@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { addPost } from '../../../redux/postsRedux';
+import { addPost, addPostRequest } from '../../../redux/postsRedux';
 import { getActive } from '../../../redux/usersRedux';
 import Button from '../../common/Button/Button';
 import styles from './PostAdd.module.scss';
@@ -24,17 +24,20 @@ class Component extends React.Component {
       if (minute > 0 && minute < 10 ) minute = `0${minute}`;
       return minute;
     };
+    const { loggedUser } = this.props;
     const dateString = `${date.getUTCDate()}-${(date.getUTCMonth()+1)}-${date.getUTCFullYear()} at ${hours()}:${minutes()}`;
-    this.state = {title: '', description: '', user: '', date: dateString, email: '', status:'draft'};
+    this.state = {title: '', created: new Date(), status: 'draft'};
+    // this.state = {title: '', description: '', user: loggedUser.name, created: new Date(), email: '', status:'draft'};
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
-    const { addNewPost  } = this.props;
-    console.log(`status`, this.state.status);
+    const { addNewPost, loggedUser  } = this.props;
+    // console.log(`status`, this.state.status);
+    this.setState({user: loggedUser.name}); //eslint-disable-line
 
-    if (!this.state.title || !this.state.description) {
+    /*if (!this.state.title || !this.state.description) {
       alert('Please fill all fields' );
       e.preventDefault();
     } else if (this.state.title.length < 10) {
@@ -57,12 +60,13 @@ class Component extends React.Component {
       e.preventDefault();
 
     }
-    else {
-      document.getElementsByName('addPost')[0].reset();
-      this.clearData();
-      addNewPost(this.state);
-      e.preventDefault();
-    }
+    else {*/
+    document.getElementsByName('addPost')[0].reset();
+    this.clearData();
+    // console.log(this.state);
+    addNewPost(this.state);
+    e.preventDefault();
+    // }
 
     return false;
 
@@ -84,6 +88,7 @@ class Component extends React.Component {
     const name = target.name;
     // console.log([name], value);
     // console.log('e.target');
+    // console.log(this.state.status);
     this.setState({[name]: value});
     // this.setState({[name]: value});
     this.setState({user: loggedUser.name});
@@ -92,7 +97,7 @@ class Component extends React.Component {
   render(){
     const {className, children, loggedUser} = this.props;
     return(
-      <div className={`${clsx(className, styles.root)}`}>
+      <div className={`${clsx(className, styles.root)}`} id="addPostBoard">
         <form name="addPost" onSubmit={this.handleSubmit} onChange={this.handleChange}>
           <div className={`${styles.postAdd} d-flex flex-column align-items-center justify-content-between`}>
             <input className={`${styles.postAddTitle} align-self-start`} type="text" name='title' placeholder="Title"/>
@@ -101,6 +106,7 @@ class Component extends React.Component {
               <input className={`${styles.postAddMail} col-6`} type="email" name='email' placeholder="email"/>
               <p>By: {loggedUser.name}</p>
             </div>
+            //TODO button type submit
             <input className={`${styles.buttonAdd} col-6`} type="submit" value="Send" component={Button}/>
           </div>
           <select name="status">
@@ -128,7 +134,7 @@ const mapStateToProps = state => ({
 );
 
 const mapDispatchToProps = (dispatch) => ({
-  addNewPost: (payload) => dispatch(addPost(payload)),
+  addNewPost: (payload) => dispatch(addPostRequest(payload)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);

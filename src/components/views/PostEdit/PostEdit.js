@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { addPost, getAll, getActivePost, getPostById, updatePost } from '../../../redux/postsRedux';
+import { addPost, getAll, getActivePost, getPostById, updatePost, editPostRequest } from '../../../redux/postsRedux';
 import { getActive } from '../../../redux/usersRedux';
 import styles from './PostEdit.module.scss';
 import {NotFound} from '../../views/NotFound/NotFound';
@@ -27,11 +27,11 @@ class Component extends React.Component {
     const dateString = `${date.getUTCDate()}-${(date.getUTCMonth()+1)}-${date.getUTCFullYear()} at ${hours()}:${minutes()}`;
 
     this.state = {
-      id: this.props.activePost.id,
+      id: this.props.activePost._id,
       title: this.props.activePost.title,
       description: this.props.activePost.description,
       author: this.props.activePost.author,
-      date: this.props.activePost.date,
+      created: this.props.activePost.created,
       status: this.props.activePost.state,
       edited: {
         name: this.props.loggedUser.name,
@@ -71,7 +71,7 @@ class Component extends React.Component {
 
   render(){
     const {className, children, activePost, loggedUser} = this.props;
-    console.log(`editpage`, activePost.status);
+    // console.log(`editpage`, activePost.status);
     return(
 
       <div className={clsx(className, styles.root)}>
@@ -110,7 +110,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  updatePost: (payload) => dispatch(updatePost(payload)),
+  updatePost: (payload) => dispatch(editPostRequest(payload)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(Component);
