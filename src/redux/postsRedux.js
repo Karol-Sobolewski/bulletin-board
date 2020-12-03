@@ -1,26 +1,17 @@
-import { VerifiedUserSharp } from '@material-ui/icons';
 import Axios from 'axios';
-import shortid from 'shortid';
-// import { post } from '../../backend/routes/posts.routes';
 
 /* selectors */
 export const getAll = ({posts}) => posts.data;
 export const getAllPublished = ({posts}) => posts.data.filter(item => item.status == 'published');
 export const getAllWithDrafted =  ({posts, users}) => {
-  // console.log(posts.data, users.activeUser.name);
-  // console.log(`log`, posts.data.filter(item => (item.author == users.activeUser.name && item.status == 'draft') || item.status == 'published'));
   return posts.data.filter(item => item.status == 'published' || (item.author == users.activeUser.name && item.status == 'draft'));
 };
 
 export const getActivePost = ({posts}) => posts.activePost;
 
 export const getPostById = ({posts}, postId) => {
-  console.log(`posts`, posts);
+
   return posts.data;
-  // const filtered =  posts.data.filter(post => post._id == postId);
-  // console.log(`post id`, postId);
-  // return posts.data.filter(post => post.id === postId);
-  // return filtered.length ? filtered[0] : {error: true};
 };
 
 /* action name creator */
@@ -40,7 +31,6 @@ export const fetchStarted = payload => ({ payload, type: FETCH_START });
 export const fetchSuccess = payload => ({ payload, type: FETCH_SUCCESS });
 export const fetchError = payload => ({ payload, type: FETCH_ERROR });
 export const addNewPost =  payload => ({payload, type: ADD_POST});
-// export const addNewPost = payload => ({payload: { ...payload, _id: shortid.generate() }, type: ADD_POST });
 export const selectPost = payload => ({payload: payload, type: SELECT_POST });
 export const updatePost = payload => ({payload: payload, type: UPDATE_POST });
 
@@ -53,7 +43,6 @@ export const fetchPublished = () => {
         .get('http://localhost:8000/api/posts')
         .then(res => {
           dispatch(fetchSuccess(res.data));
-        // console.log(`res`, Axios.get(`http://localhost:8000/api/posts`));
         })
         .catch(err => {
           dispatch(fetchError(err.message || true));
@@ -82,12 +71,8 @@ export const addPostRequest = (post) => {
 
     dispatch(fetchStarted());
     try {
-      // console.log(`res`, Axios.post(`http://localhost:8000/api/posts`));
       let res = await Axios.post('http://localhost:8000/api/posts', post);
-      // console.log(res);
-      // await new Promise((resolve) => resolve());
-      dispatch(addNewPost(res));
-      // console.log(res);
+      dispatch(addNewPost(res.data));
     } catch(err) {
       dispatch(fetchError(err.message || true));
     }
@@ -100,7 +85,6 @@ export const editPostRequest = (post) => {
   return async dispatch => {
     dispatch(fetchStarted());
     try {
-      console.log(`req`, post);
       let res = await Axios.put(`http://localhost:8000/api/posts/${post.id}`, post);
 
       await new Promise((resolve) => resolve());
@@ -160,18 +144,20 @@ export default function reducer(statePart = [], action = {}) {
       };
     }
     case UPDATE_POST: {
-      // console.log(`action`, action.payload);
-      // console.log(`statepart`, statePart.data);
+      console.log(statePart);
+      console.log(action.payload);
       return {
         ...statePart,
+        activePost: action.payload,
         data: statePart.data.map(data => {
-          console.log(data);
+          console.log(`2`, data);
 
           if (data.id === action.payload.id) {
             return {
               ...action.payload,
             };
           } else {
+            console.log(`3`, data);
             return data;
           }
         }),

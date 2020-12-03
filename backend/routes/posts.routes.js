@@ -22,9 +22,6 @@ router.get('/posts/:id', async (req, res) => {
   try {
     const result = await Post
       .findById(req.params.id);
-      // .select('author created title description editDate editAuthor');
-
-    // console.log(`result`, result);
     if(!result) res.status(404).json({ post: 'Not found' });
     else res.json(result);
   }
@@ -34,9 +31,6 @@ router.get('/posts/:id', async (req, res) => {
 });
 
 router.post('/posts', async (req, res) => {
-  // console.log('req body', req.body);
-  // const bodySanitize = sanitize(req.body);
-  // console.log('bodySanitize', bodySanitize);
   try {
     const newPost = new Post(
       {
@@ -48,9 +42,8 @@ router.post('/posts', async (req, res) => {
         author: req.body.user,
       }
     );
-    console.log(newPost);
     await newPost.save();
-    res.json({ message: 'OK' });
+    res.json(newPost);
 
   } catch(err) {
     res.status(500).json(err);
@@ -59,7 +52,6 @@ router.post('/posts', async (req, res) => {
 
 
 router.put('/posts/:id', async (req, res) => {
-  console.log(req.params);
   try {
     const post = await Post.findById(req.params.id);
     if (post) {
@@ -67,7 +59,7 @@ router.put('/posts/:id', async (req, res) => {
         post[prop] = req.body[prop];
       }
       await post.save();
-      res.json({ message: 'OK' });
+      res.json(post);
     } else res.status(404).json({ message: 'Not found...' });
   } catch(err) {
     res.status(500).json(err);

@@ -7,7 +7,6 @@ import Button from '../../common/Button/Button';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import styles from './PostBoard.module.scss';
-import { Post } from '../../views/Post/Post';
 import { Posts } from '../../views/Posts/Posts';
 import { PostAdd } from '../../views/PostAdd/PostAdd';
 
@@ -19,26 +18,17 @@ class Component extends React.Component {
   componentDidMount() {
     const { fetchPublishedPosts } = this.props;
     fetchPublishedPosts();
-    // fetchUsers();
-
   }
   selectedPost(payload){
     const { sendActivePost } = this.props;
-    // console.log('user', payload);
     sendActivePost(payload);
   }
   handlePostButton = () => {
-    const addPostBoard = document.getElementById('addPostBoard');
-    // const addPostButton = document.getElementById('addPostbutton');
     this.setState({addPostBoardClasses: styles.active});
     this.setState({addPostButtonClasses:  styles.addPostButton});
-    // addPostBoard.className += 'active';
-    // this.addPostButton.current.classList.add('active');
-    // addPostButton.classList.remove('active');
-    // addPostButton.className -= 'active';
   }
   render(){
-    const {className, children, postsList, isLogged, publishedPosts, addPostButton, posts, fetchPublishedPosts }= this.props;
+    const {className, isLogged, posts }= this.props;
     return (
       <div className={clsx(className, styles.root)}>
         <div className={`${styles.postsGrid} justify-content-center`}>
@@ -49,7 +39,6 @@ class Component extends React.Component {
           }) : <p>There are no post. {isLogged.active ? <p>Add new one.</p>: null}</p>}
           {isLogged.active ?
             <div className={`${styles.post} col-sm-12 col-md-6 col-lg-3 d-flex flex-column align-items-center justify-content-center pt-3 pb-3`}>
-              {/* className={styles.addPostButton} */}
               <Button className={this.state.addPostButtonClasses} name='Add' onClick={this.handlePostButton}> </Button>
               <PostAdd className={this.state.addPostBoardClasses} />
             </div> : null}
@@ -68,6 +57,7 @@ Component.propTypes = {
   addPostButton: PropTypes.func,
   posts: PropTypes.any,
   fetchPublishedPosts : PropTypes.any,
+  // getAllWithDrafted: PropTypes.func,
 };
 
 const mapStateToProps = state => ({

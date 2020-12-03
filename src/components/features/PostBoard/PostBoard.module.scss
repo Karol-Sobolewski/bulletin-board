@@ -1,4 +1,4 @@
-@import '../../../styles/settings.scss';
+@import "../../../styles/settings.scss";
 
 .root {
   width: 100%;
@@ -8,7 +8,7 @@ div.active {
   display: flex;
 }
 
-.activeButton{
+.activeButton {
   display: flex;
 }
 
@@ -17,7 +17,7 @@ div.active {
   flex-wrap: wrap;
   // flex-direction: column-reverse;
   flex-direction: row-reverse;
-  // gap: 12px;
+  gap: 12px;
   height: 80vh;
 }
 
@@ -31,26 +31,23 @@ div.active {
     color: black;
     text-decoration: none;
   }
-  .postTitle{
+  .postTitle {
     width: 100%;
-    border-bottom: solid 2px $post-title-bg
-    }
+    border-bottom: solid 2px $post-title-bg;
   }
-  .addPostButton {
-    position: absolute;
-    z-index: 5;
-    display: none;
-  }
-  .addPostButtonHidden {
-    @extend .addPostButton;
-    display: none;
-  }
-  // .addPostButton
-@media only screen and (max-width: 992px)
- {
-  .postsGrid{
+}
+.addPostButton {
+  position: absolute;
+  z-index: 5;
+  display: none;
+}
+.addPostButtonHidden {
+  @extend .addPostButton;
+  display: none;
+}
+// .addPostButton
+@media only screen and (max-width: 992px) {
+  .postsGrid {
     overflow: scroll;
   }
- }
-
-
+}

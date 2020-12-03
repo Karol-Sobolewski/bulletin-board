@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Redirect} from 'react-router';
 
 import clsx from 'clsx';
 
 import { connect } from 'react-redux';
-import { addPost, getAll, getActivePost, getPostById, updatePost, editPostRequest } from '../../../redux/postsRedux';
+import { getActivePost, editPostRequest } from '../../../redux/postsRedux';
 import { getActive } from '../../../redux/usersRedux';
 import styles from './PostEdit.module.scss';
 import {NotFound} from '../../views/NotFound/NotFound';
 class Component extends React.Component {
   constructor(props) {
     super(props);
-    const date = new Date();
-    const hours = () => {
+    //const date = new Date();
+    /*const hours = () => {
       let hour = date.getUTCHours()+1;
       if (hour === 0) hour = '00';
       if (hour > 0 && hour < 10 ) hour = `0${hour}`;
@@ -23,8 +24,8 @@ class Component extends React.Component {
       if (minute === 0) minute = '00';
       if (minute > 0 && minute < 10 ) minute = `0${minute}`;
       return minute;
-    };
-    const dateString = `${date.getUTCDate()}-${(date.getUTCMonth()+1)}-${date.getUTCFullYear()} at ${hours()}:${minutes()}`;
+    };*/
+    // const dateString = `${date.getUTCDate()}-${(date.getUTCMonth()+1)}-${date.getUTCFullYear()} at ${hours()}:${minutes()}`;
 
     this.state = {
       id: this.props.activePost._id,
@@ -33,10 +34,8 @@ class Component extends React.Component {
       author: this.props.activePost.author,
       created: this.props.activePost.created,
       status: this.props.activePost.state,
-      edited: {
-        name: this.props.loggedUser.name,
-        date: dateString,
-      },
+      editDate: new Date(),
+      editAuthor: this.props.loggedUser.name,
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,6 +55,7 @@ class Component extends React.Component {
         e.preventDefault();
         updatePost(this.state);
         // TODO when status of post is not selected again-> status is undefined
+        this.setState({redirectToPost: true});
       }
     } else {
       alert('You have no premisions to edit this post');
@@ -63,6 +63,7 @@ class Component extends React.Component {
     return false;
   }
   handleChange(e){
+    const {activePost} = this.props;
     const target = e.target;
     const value = target.value;
     const name = target.name;
@@ -70,25 +71,26 @@ class Component extends React.Component {
   }
 
   render(){
-    const {className, children, activePost, loggedUser} = this.props;
-    // console.log(`editpage`, activePost.status);
-    return(
+    const {className, activePost} = this.props;
+    const redirectToPost = this.state.redirectToPost;
 
-      <div className={clsx(className, styles.root)}>
-        {activePost.author ? <div> <form name="editPost" onSubmit={this.handleSubmit} onChange={this.handleChange}>
-          <div className={`${styles.postAdd} d-flex flex-column align-items-center justify-content-between`}>
-            <input defaultValue={this.state.title} className={`${styles.postAddTitle} align-self-start`} type="text" name='title' placeholder="Title"/>
-            <textarea defaultValue={this.state.description} rows="6" name='description' placeholder="Description"/>
-            <p className={`align-self-end`}>By: {this.state.author}</p>
+    return(
+      redirectToPost ? <Redirect to={`/post/${activePost._id}`} /> :
+        <div className={clsx(className, styles.root)}>
+          {activePost.author ?<form name="editPost" className={`w-100 d-flex flex-column align-items-center justify-content-between`} onSubmit={this.handleSubmit} onChange={this.handleChange}>
+            <div className={`w-100 d-flex flex-column align-items-center justify-content-around`}>
+              <input defaultValue={this.state.title} className={`${styles.postTitle} w-100 align-self-start`} type="text" name='title' placeholder="Title"/>
+              <textarea defaultValue={this.state.description} rows="6" name='description' placeholder="Description"/>
+              <p className={`align-self-end`}>By: {this.state.author}</p>
+            </div>
+            <select name="status" value={this.state.status ? null : activePost.status}>
+              <option value="draft">Draft</option>
+              <option value="published">Published</option>
+              <option value="closed">Closed</option>
+            </select>
             <input type="submit" value="Send" />
-          </div>
-          <select name="status" value={activePost.status}>
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
-            <option value="closed">Closed</option>
-          </select>
-        </form> </div> : <NotFound />}
-      </div>
+          </form> : <NotFound />}
+        </div>
 
     );
   }

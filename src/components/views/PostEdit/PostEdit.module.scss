@@ -1,7 +1,17 @@
 @import '../../../styles/settings.scss';
 
 .root {
-
+  align-items: center;
+  align-self: center;
+  justify-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 80vh;
+  width: 90%;
+  border: 2px solid black;
+  margin-top: 5vh;
+  padding: 10vh 10vw 10vh 10vw;
  }
 .post {
   border: 2px solid black;

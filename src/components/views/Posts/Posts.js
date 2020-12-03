@@ -3,39 +3,27 @@ import PropTypes from 'prop-types';
 import {Post} from '../Post/Post';
 import clsx from 'clsx';
 import { connect } from 'react-redux';
-
-import {PostEdit} from '../PostEdit/PostEdit';
-// import { connect } from 'react-redux';
-// import { reduxSelector, reduxActionCreator } from '../../../redux/exampleRedux.js';
 import {  getActive } from '../../../redux/usersRedux';
 
 import styles from './Posts.module.scss';
 
 const Component = ({
-  activeUser,
   className,
-  children, id,
+  children,
   title,
   description,
   author,
   created,
   editAuthor,
   editDate,
-  status,
 }) => {
-  // console.log('user name', activeUser.name);
-  // console.log('author', author);
-  // console.log('status', status);
-  // console.log();
-  // console.log(status === 'draft' && activeUser.name === author ? status: 'no');
-  //TODO When post is draft and when user is not the author than is not visible.
   return(
     <div className={clsx(className, styles.root)}>
       <h3 className={`${styles.postTitle} align-self-start`}>{title}</h3>
       <p className={`${styles.postDescription}`}>{description}</p>
       <p className={`align-self-end`}>by: {author}</p>
-      <p>Posted: {created}</p>
-      {editDate ? <p>Last Edited: {editDate} by: {editAuthor}</p> : null}
+      <p>Posted: {created.split('T')[0]}</p>
+      {editDate ? <p>Last Edited: {editDate.split('T')[0]} by: {editAuthor}</p> : null}
       {props => <Post {...props} key={this.props._id} />}
       {children}
     </div>
