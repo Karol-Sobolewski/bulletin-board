@@ -19,7 +19,7 @@ class Component extends React.Component {
     const { fetchPublishedPosts } = this.props;
     fetchPublishedPosts();
   }
-  selectedPost(payload){
+  selectPost(payload){
     const { sendActivePost } = this.props;
     sendActivePost(payload);
   }
@@ -33,7 +33,7 @@ class Component extends React.Component {
       <div className={clsx(className, styles.root)}>
         <div className={`${styles.postsGrid} justify-content-center`}>
           {posts.length ? posts.map(post => { //eslint-disable-line
-            return <Link key={post._id} to={`/post/${post._id}`} onClick={(payload) => this.selectedPost(post)} className={`${styles.post} col-sm-12 col-md-6 col-lg-3 d-flex flex-column align-items-center justify-content-between pt-3 pb-3`}>
+            return <Link key={post._id} to={`/post/${post._id}`} onClick={(payload) => this.selectPost(post)} className={`${styles.post} col-sm-12 col-md-6 col-lg-3 d-flex flex-column align-items-center justify-content-between pt-3 pb-3`}>
               <Posts {...post} />
             </Link>;
           }) : <p>There are no post. {isLogged.active ? <p>Add new one.</p>: null}</p>}

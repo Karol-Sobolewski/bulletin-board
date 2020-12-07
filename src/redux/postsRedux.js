@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { API_URL } from '../config.js';
 
 /* selectors */
 export const getAll = ({posts}) => posts.data;
@@ -40,7 +41,7 @@ export const fetchPublished = () => {
     const state = getState();
     if(!state.posts.data.length) {
       Axios
-        .get('http://localhost:8000/api/posts')
+        .get(`${API_URL}/posts`)
         .then(res => {
           dispatch(fetchSuccess(res.data));
         })
@@ -57,7 +58,7 @@ export const fetchSelected = (id) => {
     dispatch(fetchStarted());
 
     try {
-      let res = await Axios.get(`http://localhost:8000/api/posts/${id}`);
+      let res = await Axios.get(`${API_URL}/posts/${id}`);
       await new Promise((resolve, reject) => resolve());
       dispatch(fetchSuccess(res.data));
     } catch(err) {
@@ -71,7 +72,7 @@ export const addPostRequest = (post) => {
 
     dispatch(fetchStarted());
     try {
-      let res = await Axios.post('http://localhost:8000/api/posts', post);
+      let res = await Axios.post(`${API_URL}/posts`, post);
       dispatch(addNewPost(res.data));
     } catch(err) {
       dispatch(fetchError(err.message || true));
@@ -85,7 +86,7 @@ export const editPostRequest = (post) => {
   return async dispatch => {
     dispatch(fetchStarted());
     try {
-      let res = await Axios.put(`http://localhost:8000/api/posts/${post.id}`, post);
+      let res = await Axios.put(`${API_URL}/posts/${post.id}`, post);
 
       await new Promise((resolve) => resolve());
       dispatch(updatePost(res.data));
